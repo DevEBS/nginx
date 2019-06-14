@@ -1,4 +1,58 @@
-location ~* /api/shutdown/jenkins {
+server {
+    listen $WWW_IP:80;
+    server_name www.ebstech.io;
+    return 301 https://www.ebstech.io$request_uri; 
+
+}
+
+server {
+    listen $WWW_IP:443 ssl;
+    server_name www.ebstech.io;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_certificate /etc/letsencrypt/live/www.ebstech.io/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/www.ebstech.io/privkey.pem;
+
+
+location ~* /api/startup/nginx {
+    proxy_pass https://$startup_url$startup_url$nginx_ID;
+
+}
+
+location ~* /api/startup/splunk {
     client_max_body_size 0;
-    proxy_pass https://$shutdown_url$shutdown_uri$jenkins_ID;
+    proxy_set_header Host c4u4aswn3l.execute-api.us-east-2.amazonaws.com;
+    set $api_uri /staging/StartupEC2?ID=i-04548e03234030aa8;
+    proxy_pass https://$startup_url$startup_url$splunk_ID;
+
+}
+
+location ~* /api/startup/jenkins {
+    proxy_pass https://$startup_url$startup_url$jenkins_ID;
+
+}
+
+
+location ~* /api/shutdown/nginx {
+    client_max_body_size 0;
+    proxy_pass https://$shutdown_url$shutdown_uri$nginx_ID;
+
+}
+
+location ~* /api/shutdown/splunk {
+    proxy_pass https://$shutdown_url$shutdown_uri$splunk_ID;
+
+}
+
+location ~* /api/shutdown/jenkins {
+    proxy_pass https://shutdown_url$shutdown_uri$jenkins_ID;
+
+}
+
+
+location ~* /api/startup {
+    proxy_pass https://startup_url$startup_uri;
+
+}
+
+
 }
