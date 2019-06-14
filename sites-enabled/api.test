@@ -19,17 +19,17 @@ server {
 
 
 location ~* /api/startup/nginx {
-    proxy_pass https://$startup_url$startup_url$nginx_ID;
+    proxy_pass https://$startup_url$startup_uri$nginx_ID;
 
 }
 
 location ~* /api/startup/splunk {
-    proxy_pass https://$startup_url$startup_url$splunk_ID;
+    proxy_pass https://$startup_url$startup_uri$splunk_ID;
 
 }
 
 location ~* /api/startup/jenkins {
-    proxy_pass https://$startup_url$startup_url$jenkins_ID;
+    proxy_pass https://$startup_url$startup_uri$jenkins_ID;
 
 }
 
