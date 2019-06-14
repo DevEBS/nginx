@@ -11,6 +11,11 @@ server {
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_certificate /etc/letsencrypt/live/www.ebstech.io/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/www.ebstech.io/privkey.pem;
+    set $startup_api_url $startup_url;
+    set $startup_api_uri $startup_uri;
+    set $nginx_Instance_ID $nginx_ID;
+    set $splunk_Instance_ID $splunk_ID;
+    set $jenkins_Instance_ID $jenkins_ID;
 
 
 location ~* /api/startup/nginx {
@@ -19,9 +24,6 @@ location ~* /api/startup/nginx {
 }
 
 location ~* /api/startup/splunk {
-    client_max_body_size 0;
-    proxy_set_header Host c4u4aswn3l.execute-api.us-east-2.amazonaws.com;
-    set $api_uri /staging/StartupEC2?ID=i-04548e03234030aa8;
     proxy_pass https://$startup_url$startup_url$splunk_ID;
 
 }
