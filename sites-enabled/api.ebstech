@@ -14,33 +14,39 @@ server {
 
 
 location ~* /api/startup/nginx {
-    proxy_pass https://$startup_url$startup_uri$nginx_ID;
+    set $api_uri $startup_uri$nginx_ID;
+    proxy_pass https://$startup_url$api_uri;
 
 }
 
 location ~* /api/startup/splunk {
-    proxy_pass https://$startup_url$startup_uri$splunk_ID;
+    set $api_uri $startup_uri$splunk_ID;
+    proxy_pass https://$startup_url$api_uri;
 
 }
 
 location ~* /api/startup/jenkins {
-    proxy_pass https://$startup_url$startup_uri$jenkins_ID;
+    set $api_uri $startup_uri$jenkins_ID;
+    proxy_pass https://$startup_url$api_uri;
 
 }
 
 
 location ~* /api/shutdown/nginx {
-    proxy_pass https://$shutdown_url$shutdown_uri$nginx_ID;
+    set $api_uri $shutdown_uri$nginx_ID;
+    proxy_pass https://$shutdown_url$api_uri;
 
 }
 
 location ~* /api/shutdown/splunk {
-    proxy_pass https://$shutdown_url$shutdown_uri$splunk_ID;
+    set $api_uri $shutdown_uri$splunk_ID;
+    proxy_pass https://$shutdown_url$api_uri;
 
 }
 
 location ~* /api/shutdown/jenkins {
-    proxy_pass https://$shutdown_url$shutdown_uri$jenkins_ID;
+    set $api_uri $shutdown_uri$jenkins_ID;
+    proxy_pass https://$shutdown_url$api_uri;
 
 }
 
