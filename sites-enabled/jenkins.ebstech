@@ -1,0 +1,26 @@
+server {
+    listen $WWW_IP:80;
+    server_name jenkins.ebstech.io;
+    return 301 https://jenkins.ebstech.io$request_uri;
+}
+
+server {
+    listen $WWW_IP:443 ssl;
+    server_name jenkins.ebstech.io;
+
+
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_certificate /etc/letsencrypt/live/jenkins.ebstech.io/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/jenkins.ebstech.io/privkey.pem;
+
+    location ~ {
+        proxy_pass http://jenkins.ebstech;
+        proxy_ssl_session_reuse off;
+        proxy_ssl_name $host;
+        proxy_ssl_server_name on;
+        proxy_ssl_protocols TLSv1.2;
+
+    }
+
+    status_zone https-jenkins.ebstech;
+}
