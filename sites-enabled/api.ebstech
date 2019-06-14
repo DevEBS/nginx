@@ -52,7 +52,8 @@ location ~* /api/shutdown/jenkins {
 
 
 location ~* /api/startup {
-    proxy_pass https://$startup_url$startup_uri;
+    set $api_uri $startup_uri
+    proxy_pass https://$startup_url$api_uri;
 
 }
 
