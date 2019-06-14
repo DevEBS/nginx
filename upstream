@@ -1,0 +1,4 @@
+upstream jenkins.ebstech {
+        server $jenkins_PrivIP:8080;
+        zone jenkins.ebstech_backend 64k;
+}
