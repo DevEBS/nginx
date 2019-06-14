@@ -11,13 +11,6 @@ server {
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_certificate /etc/letsencrypt/live/www.ebstech.io/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/www.ebstech.io/privkey.pem;
-    set $shutdown_api_url $shutdown_url;
-    set $shutdown_api_uri $shutdown_uri;
-    set $startup_api_url $startup_url;
-    set $startup_api_uri $startup_uri;
-    set $nginx_Instance_ID $nginx_ID;
-    set $splunk_Instance_ID $splunk_ID;
-    set $jenkins_Instance_ID $jenkins_ID;
 
 
 location ~* /api/startup/nginx {
@@ -37,7 +30,6 @@ location ~* /api/startup/jenkins {
 
 
 location ~* /api/shutdown/nginx {
-    client_max_body_size 0;
     proxy_pass https://$shutdown_url$shutdown_uri$nginx_ID;
 
 }
@@ -48,13 +40,13 @@ location ~* /api/shutdown/splunk {
 }
 
 location ~* /api/shutdown/jenkins {
-    proxy_pass https://shutdown_url$shutdown_uri$jenkins_ID;
+    proxy_pass https://$shutdown_url$shutdown_uri$jenkins_ID;
 
 }
 
 
 location ~* /api/startup {
-    proxy_pass https://startup_url$startup_uri;
+    proxy_pass https://$startup_url$startup_uri;
 
 }
 
