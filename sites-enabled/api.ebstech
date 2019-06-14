@@ -65,7 +65,7 @@ location ~* /api/statusec2 {
 
 location ~* /api/shutdown {
     set $api_uri $shutdown_uri;
-    proxy_pass https://shutdown_url$api_uri;
+    proxy_pass https://$shutdown_url$api_uri;
 }
 
 }
