@@ -59,7 +59,7 @@ location ~* /api/startup {
 
 location ~* /api/statusec2 {
     set $api_uri $status_uri;
-    proxy_pass https://$status_uri$api_uri;
+    proxy_pass https://$status_url$api_uri;
 
 }
 
